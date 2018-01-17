@@ -15,7 +15,7 @@ Commande les systèmes de gestion électrique en 433Mhz de [Intertechno](http://
 ## Usage
 ```
 You: Allume la lumière de la chambre
-Jarvis: Lumière éteinte
+Jarvis: Lumière allumé
 ```
 
 ## Author
