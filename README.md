@@ -10,13 +10,13 @@ For multi-language plugin:
 - optionally write the Description / Usage sections in several languages
 -->
 ## Description
-Description of your Plugin
+Commande les systèmes de gestion électrique en 433Mhz de [Intertechno](http://intertechno.at/)
 
 ## Usage
 ```
-You: example of how to trigger the command
-Jarvis: output from Jarvis
+You: Allume la lumière de la chambre
+Jarvis: Lumière éteinte
 ```
 
 ## Author
-[your name](http://your.website)
+Golden0kamia (Bastien Piguet)
