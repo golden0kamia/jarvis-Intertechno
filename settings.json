@@ -1,0 +1,18 @@
+{
+  "setting": {
+    "pinIN": ""
+    "pinOUT": 7
+  },
+  "device": {
+    "bedroom": {
+      "adresse": 12345789,
+      "unit": 0,
+      "delay": 254
+    },
+    "desk": {
+      "adresse": 12345789,
+      "unit": 2,
+      "delay": 254
+    }
+  }
+}
