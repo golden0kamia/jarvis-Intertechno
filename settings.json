@@ -1,6 +1,6 @@
 {
   "setting": {
-    "pinIN": ""
+    "pinIN": "",
     "pinOUT": 7
   },
   "device": {
