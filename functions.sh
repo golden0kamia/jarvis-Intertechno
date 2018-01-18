@@ -19,7 +19,7 @@ function pg_it_send()
     delay=$((jq .device.$1.delay $file))
     status=$2
     
-    if [ "$1" = "1" ]
+    if [ "$3" = "1" ]
     then
         for i in {1..4}
         do
@@ -30,15 +30,15 @@ function pg_it_send()
             send_unit $unit
             stop_send
         done
-    elif [ "$1" = "0" ]
+    elif [ "$3" = "0" ]
         for i in {1..4}
-            do
-                start_send
-                send_adresse $adresse
-                send_bit 1 #Send to enable group action
-                send_bit $status #Send the status of the light [on|off]
-                send_unit 0 #unit note use in group
-                stop_send
+        do
+            start_send
+            send_adresse $adresse
+            send_bit 1 #Send to enable group action
+            send_bit $status #Send the status of the light [on|off]
+            send_unit 0 #unit note use in group
+            stop_send
         done
     else
         jv_error "Wrong bit send"
