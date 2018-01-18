@@ -1,39 +1,59 @@
 #!/bin/bash
-# Here you can create functions which will be available from the commands file
-# You can also use here user variables defined in your config file
-# To avoid conflicts, name your function like this
-# pg_XX_myfunction () { }
-# pg for PluGin
-# XX is a short code for your plugin, ex: ww for Weather Wunderground
-# You can use translations provided in the language folders functions.sh
-source ./gpio
+#Creator Bastien Piguet @golden0kamia
 
-pin=$pg_it_pin
-delay=$time
+source gpio.sh
 
-gpio mode $pin out
+file='settings.json' #Settings file
+
+pinIN=$(jq .setting.pinIN $file)
+pinOUT=$(jq .setting.pinOUT $file)
+
+gpio mode $pinIN in
+gpio mode $pinOUT out
     
 
 function pg_it_send()
 {
-    adresse=$1
-    unit=$2
-    status=$3
+    adresse=$(jq .device.$1.adresse $file)
+    unit=$(jq .device.$1.unit $file)
+    delay=$((jq .device.$1.delay $file))
+    status=$2
     
-    start_send
-    send_adresse $adresse
-    send_bit "0" #Send to disable group action
-    send_bit $status #Send the status if th light [on|off]
-    send_unit $unit
-    stop_send
+    if [ "$1" = "1" ]
+    then
+        for i in {1..4}
+        do
+            start_send
+            send_adresse $adresse
+            send_bit 0 #Send to disable group action
+            send_bit $status #Send the status of the light [on|off]
+            send_unit $unit
+            stop_send
+        done
+    elif [ "$1" = "0" ]
+        for i in {1..4}
+            do
+                start_send
+                send_adresse $adresse
+                send_bit 1 #Send to enable group action
+                send_bit $status #Send the status of the light [on|off]
+                send_unit 0 #unit note use in group
+                stop_send
+        done
+    else
+        jv_error "Wrong bit send"
+        jv_exit
+    fi
+    sleep 2
 }
 
+########## Sending data ##########
 function start_send()
 {
     gpio write $pin 1
-    sleep $delay
+    usleep $delay
     gpio write $pin 0
-    sleep $((delay*10+delay/2))
+    usleep $((delay*10+delay/2))
 }
 
 function send_adresse()
@@ -41,7 +61,6 @@ function send_adresse()
     for i in {25..0}
     do
         send_bit $(((adresse >> i) & 1))
-        sleep $delay
     done
 }
 
@@ -50,16 +69,15 @@ function send_unit()
     for i in {3..0}
     do
         send_bit $(((unit >> i) & 1))
-        sleep $delay
     done
 }
 
 function stop_send()
 {
     gpio write $pin 1
-    sleep $delay
+    usleep $delay
     gpio write $pin 0
-    sleep $((delay * 40))
+    usleep $((delay * 40))
 }
 
 function send_bit()
@@ -67,22 +85,22 @@ function send_bit()
     if [ "$1" = "1" ]
     then
         gpio write $pin 1
-        sleep $delay
+        usleep $delay
         gpio write $pin 0
-        sleep $((delay * 5))
+        usleep $((delay * 5))
         gpio write $pin 1
-        sleep $delay
+        usleep $delay
         gpio write $pin 0
-        sleep $delay
+        usleep $delay
     elif [ "$1" = "0" ]
         gpio write $pin 1
-        sleep $delay
+        usleep $delay
         gpio write $pin 0
-        sleep $delay
+        usleep $delay
         gpio write $pin 1
-        sleep $delay
+        usleep $delay
         gpio write $pin 0
-        sleep $((delay * 5))
+        usleep $((delay * 5))
     else
         jv_error "Wrong bit send"
         jv_exit
