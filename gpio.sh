@@ -1,5 +1,6 @@
 #!/bin/bash
 
+#Creator Luke Sandell @lasandell
 # Utility to control the GPIO pins of the Raspberry Pi
 # Can be called as a script or sourced so that the gpio
 # function can be called directly
