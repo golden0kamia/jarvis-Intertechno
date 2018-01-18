@@ -19,11 +19,10 @@ function pg_it_send()
     adresse=$1
     unit=$2
     status=$3
-    group=$4
     
     start_send
     send_adresse $adresse
-    send_bit $group #Send if the the command is in a group
+    send_bit "0" #Send to disable group action
     send_bit $status #Send the status if th light [on|off]
     send_unit $unit
     stop_send
