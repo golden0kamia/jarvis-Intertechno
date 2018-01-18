@@ -44,6 +44,13 @@ function pg_it_send()
         jv_error "Wrong bit send"
         jv_exit
     fi
+    
+    if [ "$2" = "1" ]
+    then
+        pg_it_return "turn_on" $1
+    else
+        pg_it_return "turn_off" $1
+    fi
     sleep 2
 }
 
