@@ -1,1 +1,2 @@
-pg_it_pin="XX" #Write the pin connected to the 433Mhz transmitter data
+#Configuration is in file settings.json
+#Check the wiki for information https://github.com/golden0kamia/jarvis-Intertechno/wiki
