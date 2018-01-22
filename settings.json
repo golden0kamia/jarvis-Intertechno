@@ -7,12 +7,12 @@
     "bedroom": {
       "adresse": 12345789,
       "unit": 0,
-      "delay": 254
+      "delay": 253
     },
-    "desk": {
+    "tout": {
       "adresse": 12345789,
-      "unit": 2,
-      "delay": 254
+      "unit": 0,
+      "delay": 253
     }
   }
 }
