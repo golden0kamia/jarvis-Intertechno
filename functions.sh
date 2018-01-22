@@ -1,5 +1,6 @@
 #!/bin/bash
 #Creator Bastien Piguet @golden0kamia
+
 file='settings.json' #Settings file
 
 pinIN=$(jq .setting.pinIN $file)
@@ -10,6 +11,7 @@ gpio mode $pinOUT out
 
 function pg_it_send()
 {
+	
     adresse=$((jq .device.$1.adresse $file)
     unit=$((jq .device.$1.unit $file)
 	group=$3
