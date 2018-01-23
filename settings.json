@@ -1,7 +1,7 @@
 {
   "setting": {
     "pinIN": "",
-    "pinOUT": 7
+    "pinOUT": 4
   },
   "device": {
     "bedroom": {

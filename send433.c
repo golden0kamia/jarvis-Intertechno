@@ -1,34 +1,47 @@
+//Main program to control Intertechno device in 433Mhz
+//Creator Bastien Piguet @Golden0kamia
+
 #include <wiringPi.h>
 #include <stdio.h>
+#include "transform.h"
 
+//-------- Global variables --------//
 char pin = 4;
+int repeat = 4;
 int i = 0;
-int time;
+int time = 260; //initialize here for all the functions
 
+//-------- Functions --------//
 void sendStartPulse();
 void sendAdress(int adress);
 void sendUnit(int unit);
 void sendStopPulse();
-void sendBit(char bitsend);
+void sendBit(int bitsend);
 
+//-------- Main --------//
 int main(int argc, char *argv[])
 {
+	//-------- Setting up --------//
 	wiringPiSetupGpio();
 	pinMode(pin, OUTPUT);
-	int adress = 13709258;
-	int status = $argv[2];
-	int unit   = 0;
-	time  = 253;
-	printf("adress:%s\nstatus:%s\nunit:%s\ntime:%s\n", adress, status, unit, time);
-	for (int y = 0; y < 4; y++)
+	int adress = ctoi(argv[1]);
+	int status = ctoi(argv[2]);
+	int group  = ctoi(argv[3]);
+	int unit   = ctoi(argv[4]);
+	time       = ctoi(argv[5]);
+	printf("run \"%s\" with parameter:\nadress:%d\nstatus:%d\ngroup:%d\nunit:%d\ntime:%d\n", argv[0], adress, status, group, unit, time);
+	
+	//-------- Send information --------//
+	for (int y = 0; y < repeat; y++)
 	{
 		sendStartPulse();
 		sendAdress(adress);
-		sendBit(0);
+		sendBit(group);
 		sendBit(status);
 		sendUnit(unit);
 		sendStopPulse();
 	}
+	return 0;
 }
 
 void sendStartPulse()
@@ -63,7 +76,7 @@ void sendStopPulse()
 	delayMicroseconds(time * 40);
 }
 
-void sendBit(char bitSend)
+void sendBit(int bitSend)
 {
 	if (bitSend)
 	{
