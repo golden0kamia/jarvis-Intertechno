@@ -1,7 +1,7 @@
 #!/bin/bash
 #Creator Bastien Piguet @Golden0kamia
 
-file='settings.json' #Settings file
+file='~/jarvis/plugin_installed/jarvis-Intertechno/settings.json' #Settings file
 
 pinIN=$((jq .setting.pinIN $file))
 pinOUT=$((jq .setting.pinOUT $file))
